@@ -40,3 +40,7 @@ for i in range(len(goldResults)):
         print("Predicted Value (%s) ----- Gold Value (%s)" % (predictedResults[i], goldResults[i]))
 
 print("Accuracy: %.5f" % (float(correctCount) / float(len(goldResults))))
+
+from sklearn.metrics import recall_score, precision_score
+print("Macro precision: %0.5f" % precision_score(goldResults, predictedResults, average='macro'))
+print("Macro recall: %0.5f" % recall_score(goldResults, predictedResults, average='macro'))
