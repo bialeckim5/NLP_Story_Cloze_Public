@@ -1,9 +1,12 @@
 numpy==1.17.4
 pandas==0.25.3
-pip==10.0.1
+pip>=19
 python-dateutil==2.8.1
 pytz==2019.3
-setuptools==39.1.0
+setuptools>=39.1.0
 six==1.13.0
 spacy==2.2.2
 scikit-learn>=0.21.3
+tensorflow
+keras
+pydot
