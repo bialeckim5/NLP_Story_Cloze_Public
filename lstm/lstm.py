@@ -1,15 +1,16 @@
 import os
+
+import numpy as np
 import pandas
 import spacy
-import numpy as np
-
-from keras.models import Sequential
 from keras.layers import Dense, LSTM
+from keras.models import Sequential, model_from_json
 from keras.utils import plot_model
 
 np.random.seed(4433)
 
 USE_PREPROCESSED = True
+FRESH_MODEL = False
 
 
 def build_model():
@@ -39,13 +40,22 @@ def save_model(model, name):
     model.save_weights(name + ".h5")
 
 
+def load_model_from_file(name):
+    with open(name + ".json", 'r') as f:
+        model = model_from_json(f.read())
+    model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+
+    model.load_weights(name + ".h5")
+    return model
+
+data_dir = os.path.join(os.getcwd(), os.path.normpath("../Data"))
+data_path = os.path.join(data_dir, "Data.csv")
+test_path = os.path.join(data_dir, "Test.csv")
+validation_path = os.path.join(data_dir, "Validation.csv")
+output_path = os.path.join(os.getcwd(), "prediction.txt")
+gold_path = os.path.join(data_dir, "gold.txt")
+
 if not USE_PREPROCESSED:
-    data_dir = os.path.join(os.getcwd(), os.path.normpath("../Data"))
-    data_path = os.path.join(data_dir, "Data.csv")
-    test_path = os.path.join(data_dir, "Test.csv")
-    validation_path = os.path.join(data_dir, "Validation.csv")
-    output_path = os.path.join(os.getcwd(), "prediction.txt")
-    gold_path = os.path.join(data_dir, "gold.txt")
 
     train_df = pandas.read_csv(data_path)
     test_df = pandas.read_csv(validation_path)
@@ -121,10 +131,23 @@ else:
         y_train = np.load(f)
 
 
-model = build_model()
+if FRESH_MODEL:
+    model = build_model()
 
-# train_model(model, x_train, y_train, 10)
-# print(evaluate_model(model, x_test, y_test))
+    # train_model(model, x_train, y_train, 10)
+    # print(evaluate_model(model, x_test, y_test))
+else:
+    model = load_model_from_file('basic_model')
 
+    # print('train', evaluate_model(model, x_train, y_train))
+    # print('test', evaluate_model(model, x_test, y_test))
 
+    predictions = model.predict(x_test)
+    predicted = ["1" if p >= 0.5 else "0" for p in predictions]
+    expected = ["1" if y == 1 else "0" for y in y_test]
 
+    with open(output_path, 'w') as f:
+        f.write("\n".join(predicted))
+
+    with open(gold_path, 'w') as f:
+        f.write("\n".join(expected))
