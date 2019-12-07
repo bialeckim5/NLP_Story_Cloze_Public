@@ -9,6 +9,12 @@
 | NLTK NAIVE SENTIMENT|  0.46392 | 0.46456 | 0.46606
 | NTLK LOG REGRESSION (SENTIMENT ONLY) | Accuracy: 0.44896 | 0.44897 | 0.44895
 | NTLK NN Classifier | 0.60609 |0.61236 | 0.60315
+split vals (didnt converge)
+Accuracy: 0.57937
+Accuracy: 0.57937
+Macro precision: 0.58146
+Macro recall: 0.58054
+
 #### Baseline
 
 Our baseline for performance comparison is a simple majority vote.
