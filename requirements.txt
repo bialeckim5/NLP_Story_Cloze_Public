@@ -10,4 +10,5 @@ scikit-learn>=0.21.3
 tensorflow
 keras
 pydot
-flair
+typed-ast
+nltk

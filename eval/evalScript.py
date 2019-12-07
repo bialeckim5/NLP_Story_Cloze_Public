@@ -1,18 +1,18 @@
 import argparse
 
-parser = argparse.ArgumentParser()
-parser.add_argument("predictedFile", help="a file with predicted classifications in each line of the file")
-parser.add_argument("goldFile", help="a file with gold classifications in each line of the file")
-parser.add_argument("-v", "--verbose", required=False,
-                    help="this will print out all incorrect comparisons made to help check if there are formatting "
-                        "issues",
-                    action="store_true")
-
-args = parser.parse_args()
+# parser = argparse.ArgumentParser()
+# parser.add_argument("predictedFile", help="a file with predicted classifications in each line of the file")
+# parser.add_argument("goldFile", help="a file with gold classifications in each line of the file")
+# parser.add_argument("-v", "--verbose", required=False,
+#                     help="this will print out all incorrect comparisons made to help check if there are formatting "
+#                         "issues",
+#                     action="store_true")
+#
+# args = parser.parse_args()
 
 predictedResults = []
 #with open(args.predictedFile, 'r') as f:
-with open("../naive_vector_similarity/prediction.txt", 'r') as f:
+with open("/naive_vector_similarity/prediction.txt", 'r') as f:
     for line in f:
         val = line.strip()
         if val != "":
