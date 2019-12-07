@@ -40,7 +40,7 @@ for inp in lines:
     for i in range(0, 4):
         s = Sentence(inp[i])
         classifier.predict(s)
-        sum += s.labels[0].score;
+        sum += s.labels[0].score
     s = Sentence(inp[4])
     classifier.predict(s)
     one_sent = s.labels[0].score
