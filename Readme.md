@@ -10,11 +10,7 @@
 | NTLK LOG REGRESSION (SENTIMENT ONLY) | 0.44896 | 0.44897 | 0.44895
 | NTLK NN Classifier | 0.60609 |0.61236 | 0.60315
 | SKLearn NN on sentiment | 0.60075 | 0.60074 | 0.60079 |
-split vals (didnt converge)
-Accuracy: 0.57937
-Accuracy: 0.57937
-Macro precision: 0.58146
-Macro recall: 0.58054
+| NN on spacy vector representation | 0.54730 | 0.57570 | 0.54730 | 
 
 #### Baseline
 
@@ -34,6 +30,11 @@ We first preprocess all data, turning it into 5 sentences (the 4 context sentenc
 The model is a very basic one - 5 timeslice points into a keras LSTM layer with a single output.  This output is put through a sigmoid function (Dense layer with 1 output).
 
 ![Basic LSTM model](lstm/basic_model.png)
+
+
+#### NN on spacy vector representation
+
+We trained a keras multi-layer NN comprised of Dense layers on the SpaCy vector representation of the  
 
  ---
 ### Data
