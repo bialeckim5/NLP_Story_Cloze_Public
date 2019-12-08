@@ -28,7 +28,7 @@ val = {t[0]: t[1:] for t in val_df.values.tolist()}
 
 sp = spacy.load("en_core_web_md")
 
-lines = list(test.values())
+lines = list(val.values())
 
 expected = []
 predicted = []
@@ -39,10 +39,10 @@ for inp in lines:
     two_vec = sp(inp[5]).vector
 
     predicted.append("1" if similarity(one_vec, input_vec) > similarity(two_vec, input_vec) else "2")
-    expected.append(str(inp[6]))
+    # expected.append(str(inp[6]))
 
 with open(output_path, 'w') as f:
     f.write("\n".join(predicted))
 
-with open(gold_path, 'w') as f:
-    f.write("\n".join(expected))
+# with open(gold_path, 'w') as f:
+#     f.write("\n".join(expected))
