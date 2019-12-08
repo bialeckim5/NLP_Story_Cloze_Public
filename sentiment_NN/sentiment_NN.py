@@ -32,7 +32,7 @@ def get_compound(x):
 
 train_df = pandas.read_csv(data_path)
 test_df = pandas.read_csv(validation_path)
-# val_df = pandas.read_csv(test_path)
+val_df = pandas.read_csv(test_path)
 
 train_expected = train_df['AnswerRightEnding']
 test_expected = test_df['AnswerRightEnding']
@@ -42,22 +42,25 @@ test_df = test_df.drop('AnswerRightEnding', 1)
 
 train_df = train_df.drop('InputStoryid', 1)
 test_df = test_df.drop('InputStoryid', 1)
+val_df = val_df.drop('InputStoryid', 1)
 
 train_df = train_df.drop('Unnamed: 0', 1)
 test_df = test_df.drop('Unnamed: 0', 1)
+val_df = val_df.drop('Unnamed: 0', 1)
 
 train_df = train_df.applymap(get_compound)
 test_df = test_df.applymap(get_compound)
+val_df = val_df.applymap(get_compound)
 
 if FRESH_MODEL:
     model = MLPClassifier(solver='adam', hidden_layer_sizes=(100,), max_iter=1000)
     model.fit(train_df, train_expected)
-    predicted = model.predict(test_df)
+    predicted = model.predict(val_df)
     save_model(model, 'basic_model')
 else:
     model = load_model_from_file('basic_model')
 
-    predicted = model.predict(test_df)
+    predicted = model.predict(val_df)
 
 np.savetxt(output_path, predicted, delimiter=",", fmt='%i')
-test_expected.to_csv(gold_path, header=False, index=False)
+# test_expected.to_csv(gold_path, header=False, index=False)
