@@ -7,8 +7,9 @@
 | Basic LSTM on sentence vectors | 0.50508 | 0.51137 | 0.50508 |
 | Flair Naive Sentiment vector <not going to turn in>| 0.49653| 0.49644| 0.49644
 | NLTK NAIVE SENTIMENT|  0.46392 | 0.46456 | 0.46606
-| NTLK LOG REGRESSION (SENTIMENT ONLY) | Accuracy: 0.44896 | 0.44897 | 0.44895
+| NTLK LOG REGRESSION (SENTIMENT ONLY) | 0.44896 | 0.44897 | 0.44895
 | NTLK NN Classifier | 0.60609 |0.61236 | 0.60315
+| SKLearn NN on sentiment | 0.60075 | 0.60074 | 0.60079 |
 split vals (didnt converge)
 Accuracy: 0.57937
 Accuracy: 0.57937
