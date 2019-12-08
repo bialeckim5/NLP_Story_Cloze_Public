@@ -1,26 +1,23 @@
 import argparse
 
-# parser = argparse.ArgumentParser()
-# parser.add_argument("predictedFile", help="a file with predicted classifications in each line of the file")
-# parser.add_argument("goldFile", help="a file with gold classifications in each line of the file")
-# parser.add_argument("-v", "--verbose", required=False,
-#                     help="this will print out all incorrect comparisons made to help check if there are formatting "
-#                         "issues",
-#                     action="store_true")
-#
-# args = parser.parse_args()
+parser = argparse.ArgumentParser()
+parser.add_argument("predictedFile", help="a file with predicted classifications in each line of the file")
+parser.add_argument("goldFile", help="a file with gold classifications in each line of the file")
+parser.add_argument("-v", "--verbose", required=False,
+                    help="this will print out all incorrect comparisons made to help check if there are formatting "
+                         "issues",
+                    action="store_true")
+args = parser.parse_args()
 
 predictedResults = []
-#with open(args.predictedFile, 'r') as f:
-with open("/naive_vector_similarity/prediction.txt", 'r') as f:
+with open(args.predictedFile, 'r') as f:
     for line in f:
         val = line.strip()
         if val != "":
             predictedResults.append(val)
 
 goldResults = []
-#with open(args.goldFile, 'r') as f:
-with open("../data/gold.txt", 'r') as f:
+with open(args.goldFile, 'r') as f:
     for line in f:
         val = line.strip()
         if val != "":
@@ -43,6 +40,11 @@ for i in range(len(goldResults)):
         print("Predicted Value (%s) ----- Gold Value (%s)" % (predictedResults[i], goldResults[i]))
 
 print("Accuracy: %.5f" % (float(correctCount) / float(len(goldResults))))
+
+from sklearn.metrics import recall_score, precision_score
+print("Macro precision: %0.5f" % precision_score(goldResults, predictedResults, average='macro'))
+print("Macro recall: %0.5f" % recall_score(goldResults, predictedResults, average='macro'))
+
 
 from sklearn.metrics import recall_score, precision_score
 print("Macro precision: %0.5f" % precision_score(goldResults, predictedResults, average='macro'))
